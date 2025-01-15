@@ -9,7 +9,7 @@ export const floor1Material = new THREE.MeshStandardMaterial({
   roughness: 0,
 });
 export const floor2Material = new THREE.MeshStandardMaterial({
-  color: "rgb(43, 43, 43)",
+  color: "rgb(8, 73, 19)",
   metalness: 0,
   roughness: 0,
 });
@@ -20,6 +20,12 @@ export const obstacleMaterial = new THREE.MeshStandardMaterial({
 });
 export const wallMaterial = new THREE.MeshStandardMaterial({
   color: "rgb(53, 37, 37)",
+  metalness: 0,
+  roughness: 0,
+});
+
+export const movingBlockMaterial = new THREE.MeshStandardMaterial({
+  color: "rgb(141, 141, 141)",
   metalness: 0,
   roughness: 0,
 });

@@ -1,12 +1,21 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import { levels } from "../Levels";
 
 const useGame = create(
   subscribeWithSelector((set) => {
     return {
-      blocksCount: 10,
+      blocksCount: levels[0].blocks.length,
       startTime: 0,
       endTime: 0,
+      playerRef: undefined,
+
+      setPlayer: (ref) => {
+        set((state) => {
+          if (state.playerRef) return {};
+          return { playerRef: ref };
+        });
+      },
 
       phase: "ready",
       start: () => {

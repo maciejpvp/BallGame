@@ -13,7 +13,7 @@ const StyledOverlay = styled.div`
   width: 100%;
   height: 100%;
   pointer-events: none;
-  font-family: "Bebas Neue", cursive;
+  font-family: "Montserrat", cursive;
 `;
 
 export const Overlay = () => {

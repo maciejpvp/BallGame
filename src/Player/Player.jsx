@@ -12,6 +12,7 @@ export const Player = () => {
   const end = useGame((state) => state.end);
   const restart = useGame((state) => state.restart);
   const blocksCount = useGame((state) => state.blocksCount);
+  const setPlayer = useGame((state) => state.setPlayer);
   const playerRef = useRef();
 
   const { rapier, world } = useRapier();
@@ -24,8 +25,8 @@ export const Player = () => {
     const impulse = { x: 0, y: 0, z: 0 };
     const torque = { x: 0, y: 0, z: 0 };
 
-    const impulseStrength = 0.6 * delta;
-    const torqueImpulse = 0.2 * delta;
+    const impulseStrength = 0.01 * delta;
+    const torqueImpulse = 0.002 * delta;
 
     if (forward) {
       impulse.z -= impulseStrength;
@@ -55,8 +56,8 @@ export const Player = () => {
 
     camera.position.set(
       smoothCameraPosition.x,
-      smoothCameraPosition.y + 0.65,
-      smoothCameraPosition.z + 2.25
+      smoothCameraPosition.y + 0.35,
+      smoothCameraPosition.z + 1.25
     );
 
     camera.lookAt(
@@ -73,10 +74,9 @@ export const Player = () => {
     if (playerPosition.z < -(blocksCount * 4 + 2)) {
       end();
     }
-    if (playerPosition.y < -4) {
+    if (playerPosition.y < -0.9) {
       restart();
     }
-    // console.log(playerPosition);
   };
 
   const handleReset = () => {
@@ -92,16 +92,18 @@ export const Player = () => {
   });
 
   const jump = () => {
+    console.log(playerRef.current);
     const origin = playerRef.current.translation();
-    origin.y -= 0.29;
+    origin.y -= 0.001;
     const direction = new THREE.Vector3(0, -1, 0);
     const ray = new rapier.Ray(origin, direction);
     const hit = rapierWorld.castRay(ray);
     if (hit.toi < 0.1)
-      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.5, 0));
+      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
   };
 
   useEffect(() => {
+    setPlayer(playerRef.current);
     const unsubGame = useGame.subscribe(
       (state) => state.phase,
       (value) => {
@@ -124,6 +126,12 @@ export const Player = () => {
     };
   }, []);
 
+  const handleCollision = (value) => {
+    if (value.rigidBodyObject.userData === 1) {
+      restart();
+    }
+  };
+
   return (
     <>
       <RigidBody
@@ -134,9 +142,10 @@ export const Player = () => {
         friction={1}
         linearDamping={0.5}
         angularDamping={0.5}
+        onCollisionEnter={(value) => handleCollision(value)}
       >
         <mesh castShadow>
-          <icosahedronGeometry args={[0.3, 1]} />
+          <icosahedronGeometry args={[0.1, 1]} />
           <meshStandardMaterial flatShading color="rgb(105, 105, 105)" />
         </mesh>
       </RigidBody>

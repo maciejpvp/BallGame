@@ -3,14 +3,16 @@ import { RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
 import { useRef, useState } from "react";
 
-export const Axe = ({ material, geometry }) => {
+export const Laser = ({
+  material,
+  geometry,
+  startPosition,
+  position,
+  speed = 1,
+}) => {
   const LaserRef = useRef();
 
-  const [speed] = useState(
-    () => (Math.random() + 1) * (Math.random() > 0.5 ? 1 : -1)
-  );
-  const [startPosition] = useState(() => Math.random() * 3.14);
-  const scale = [1.2, 1.5, 0.4];
+  const scale = [3.5, 0.1, 0.1];
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
@@ -19,8 +21,8 @@ export const Axe = ({ material, geometry }) => {
 
     LaserRef.current.setNextKinematicTranslation(
       new THREE.Vector3(
-        Math.sin(startPosition + time * speed) * 0.7,
-        currentPosition.y,
+        currentPosition.x,
+        Math.sin(startPosition + time * speed) * 0.7 + 0.905,
         currentPosition.z
       )
     );
@@ -30,9 +32,12 @@ export const Axe = ({ material, geometry }) => {
     <RigidBody
       ref={LaserRef}
       type="kinematicPosition"
+      position={position}
       position-y={scale[1] / 2}
       restitution={0.2}
       friction={0}
+      //userData set to 1 means object kill player if touches
+      userData={1}
     >
       <mesh material={material} geometry={geometry} scale={scale} castShadow />
     </RigidBody>

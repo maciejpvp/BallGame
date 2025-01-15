@@ -3,7 +3,7 @@ import { DepthOfField, EffectComposer, SSR } from "@react-three/postprocessing";
 export const Effects = () => {
   return (
     <EffectComposer>
-      <SSR
+      {/* <SSR
         intensity={0.45}
         exponent={1}
         distance={10}
@@ -22,7 +22,7 @@ export const Effects = () => {
         jitter={0.75}
         jitterRoughmes={0.2}
         steps={40}
-      />
+      /> */}
       <DepthOfField focusDistance={0.01} focalLength={0.2} bokehScale={3} />
     </EffectComposer>
   );

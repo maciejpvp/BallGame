@@ -10,7 +10,7 @@ export default {
   base: "./",
   server: {
     host: true,
-    open: !isCodeSandbox,
+    // open: !isCodeSandbox,
   },
   build: {
     outDir: "../dist",

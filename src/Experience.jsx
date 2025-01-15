@@ -14,7 +14,6 @@ export default function Experience() {
     <>
       <color attach="background" args={["rgb(53, 37, 37)"]} />
       <Physics>
-        {/* <Debug /> */}
         <Lights />
         <Level trapCount={blocksCount} />
         <Player />
