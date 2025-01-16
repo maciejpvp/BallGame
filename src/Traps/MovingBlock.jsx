@@ -19,24 +19,11 @@ export const MovingBlock = ({
     const elapsedTime = clock.getElapsedTime();
     if (!blockRef.current) return;
     const currentPosition = blockRef.current.translation();
-    // console.log(currentPosition.x);
-    let newXPos = Math.sin((elapsedTime + startPosition) * speed) * 2;
+    let newXPos = Math.sin((elapsedTime + startPosition) * speed) * 1.5;
     if (reverse) newXPos *= -1;
     blockRef.current.setNextKinematicTranslation(
       new THREE.Vector3(newXPos, currentPosition.y, currentPosition.z)
     );
-    // const currentBlockPosition = blockRef.current.translation();
-    // const deltaX = currentBlockPosition.x - lastBlockPosition.x;
-    // const state = useGame.getState();
-    // if (state.playerRef && playerOnPlatform) {
-    //   const currentPlayerVelocity = state.playerRef.translation();
-    //   state.playerRef.setTranslation({
-    //     x: currentPlayerVelocity.x + deltaX / 10,
-    //     y: currentPlayerVelocity.y,
-    //     z: currentPlayerVelocity.z,
-    //   });
-    // }
-    // lastBlockPosition = { ...currentBlockPosition };
   });
 
   const handleCollisionEnter = () => {
