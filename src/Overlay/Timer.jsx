@@ -6,6 +6,7 @@ import useGame from "../stores/useGame";
 
 const StyledTimer = styled.div`
   position: absolute;
+  top: 0;
 `;
 
 const StyledH1 = styled.h1`
