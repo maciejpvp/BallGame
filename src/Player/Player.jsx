@@ -2,6 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { RigidBody, useRapier } from "@react-three/rapier";
 import { useKeyboardControls } from "@react-three/drei";
 import { useEffect, useRef } from "react";
+import { useControls } from "leva";
 import * as THREE from "three";
 import useGame from "../stores/useGame";
 
@@ -19,6 +20,11 @@ export const Player = () => {
   const rapierWorld = world.raw();
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
+
+  const { infJump, godMode } = useControls({
+    infJump: false,
+    godMode: false,
+  });
 
   const handleMovement = (delta) => {
     const { forward, backward, leftward, rightward } = getKeys();
@@ -75,6 +81,7 @@ export const Player = () => {
       end();
     }
     if (playerPosition.y < -0.9) {
+      if (godMode) return;
       restart();
     }
   };
@@ -92,14 +99,18 @@ export const Player = () => {
   });
 
   const jump = () => {
-    console.log(playerRef.current);
+    if (infJump) {
+      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
+      return;
+    }
     const origin = playerRef.current.translation();
     origin.y -= 0.001;
     const direction = new THREE.Vector3(0, -1, 0);
     const ray = new rapier.Ray(origin, direction);
     const hit = rapierWorld.castRay(ray);
-    if (hit.toi < 0.1)
+    if (hit.toi < 0.1) {
       playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
+    }
   };
 
   useEffect(() => {
@@ -124,10 +135,10 @@ export const Player = () => {
       unsubJump();
       unsubAny();
     };
-  }, []);
+  }, [infJump]);
 
   const handleCollision = (value) => {
-    if (value.rigidBodyObject.userData === 1) {
+    if (!godMode && value.rigidBodyObject.userData === 1) {
       restart();
     }
   };
