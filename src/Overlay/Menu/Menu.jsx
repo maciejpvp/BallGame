@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Stars } from "./Starts";
 import useGame from "../../stores/useGame";
+import { levels } from "../../Levels";
 
 const StyledMenu = styled.div`
   background-color: #0a0a0a;
@@ -37,15 +38,53 @@ const PlayAgainButton = styled.button`
   }
 `;
 
+const StyledTimerMessage = styled.p`
+  color: #d6d6d6;
+  font-size: larger;
+  padding-top: 20px;
+  font-weight: 600;
+`;
+
 export const Menu = () => {
+  const selectedLevelID = useGame((state) => state.selectedLevelID);
+  const selectedLevel = levels[selectedLevelID];
   const restart = useGame((state) => state.restart);
+  const startTime = useGame((state) => state.startTime);
+  const endTime = useGame((state) => state.endTime);
+
+  let timerValue = endTime - startTime;
+  timerValue /= 1000;
+  timerValue = timerValue.toFixed(2);
+
+  const howGoodPlayed = () => {
+    if (timerValue < selectedLevel.times.hackerTime) return 4;
+    if (timerValue < selectedLevel.times.forThreeStars) return 3;
+    if (timerValue < selectedLevel.times.forTwoStars) return 2;
+    return 1;
+  };
+
+  let timerMessage;
+  switch (howGoodPlayed()) {
+    case 4:
+      timerMessage = "That fast? Are you cheating?";
+      break;
+    case 3:
+      timerMessage = "Awesome you played it perfectly!";
+      break;
+    case 2:
+      timerMessage = "You almost got it, try again!";
+      break;
+    default:
+      timerMessage = "Maybe next time :/";
+  }
 
   const handleReset = () => {
     restart();
   };
   return (
     <StyledMenu>
-      <Stars />
+      <Stars stars={howGoodPlayed()} />
+      <StyledTimerMessage>{timerMessage}</StyledTimerMessage>
       <PlayAgainButton onClick={handleReset}>Play Again</PlayAgainButton>
     </StyledMenu>
   );

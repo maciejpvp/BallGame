@@ -1,18 +1,21 @@
 export const levels = [
   {
+    times: {
+      forTwoStars: 20,
+      forThreeStars: 10,
+      hackerTime: 2,
+    },
     blocks: [
       {
         objects: [
           {
             type: "platform",
-            position: { x: "center", y: "center" },
             speed: 1,
             position: [0, 0, 1],
             startPosition: -1,
           },
           {
             type: "platform",
-            position: { x: "center", y: "center" },
             speed: 1,
             position: [0, 0, -0.5],
             startPosition: 1,

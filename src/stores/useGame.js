@@ -5,6 +5,7 @@ import { levels } from "../Levels";
 const useGame = create(
   subscribeWithSelector((set) => {
     return {
+      selectedLevelID: 0,
       blocksCount: levels[0].blocks.length,
       startTime: 0,
       endTime: 0,
