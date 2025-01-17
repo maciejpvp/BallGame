@@ -1,4 +1,5 @@
 import { KeyboardControls } from "@react-three/drei";
+import { Perf } from "r3f-perf";
 import { Overlay } from "./Overlay/Overlay";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
@@ -28,6 +29,7 @@ export const App = () => {
           position: [2.5, 4, 6],
         }}
       >
+        <Perf position="top-left" />
         <Experience />
       </Canvas>
       <Overlay />
