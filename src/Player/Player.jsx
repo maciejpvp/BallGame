@@ -21,9 +21,10 @@ export const Player = () => {
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
-  const { infJump, godMode } = useControls({
+  const { infJump, godMode, speedHack } = useControls({
     infJump: false,
     godMode: false,
+    speedHack: { value: 1, min: 1, max: 5, step: 0.001 },
   });
 
   const handleMovement = (delta) => {
@@ -31,8 +32,8 @@ export const Player = () => {
     const impulse = { x: 0, y: 0, z: 0 };
     const torque = { x: 0, y: 0, z: 0 };
 
-    const impulseStrength = 0.01 * delta;
-    const torqueImpulse = 0.002 * delta;
+    const impulseStrength = 0.01 * delta * speedHack;
+    const torqueImpulse = 0.002 * delta * speedHack;
 
     if (forward) {
       impulse.z -= impulseStrength;
@@ -118,7 +119,6 @@ export const Player = () => {
     const unsubGame = useGame.subscribe(
       (state) => state.phase,
       (value) => {
-        console.log(value);
         value === "ready" && handleReset();
       }
     );
@@ -138,7 +138,7 @@ export const Player = () => {
   }, [infJump]);
 
   const handleCollision = (value) => {
-    if (!godMode && value.rigidBodyObject.userData === 1) {
+    if (value.rigidBodyObject.userData === 1 && !godMode) {
       restart();
     }
   };
