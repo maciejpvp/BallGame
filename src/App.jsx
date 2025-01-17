@@ -4,8 +4,13 @@ import { Overlay } from "./Overlay/Overlay";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import * as THREE from "three";
+import { useControls } from "leva";
 
 export const App = () => {
+  const { showPerf } = useControls({
+    showPerf: false,
+  });
+
   return (
     <KeyboardControls
       map={[
@@ -29,7 +34,7 @@ export const App = () => {
           position: [2.5, 4, 6],
         }}
       >
-        <Perf position="top-left" />
+        {showPerf && <Perf position="top-left" />}
         <Experience />
       </Canvas>
       <Overlay />
