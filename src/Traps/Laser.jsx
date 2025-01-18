@@ -12,7 +12,7 @@ export const Laser = ({
 }) => {
   const LaserRef = useRef();
 
-  const scale = [3.5, 0.1, 0.1];
+  const scale = [3.9, 0.1, 0.1];
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();

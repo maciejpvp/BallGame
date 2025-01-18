@@ -5,7 +5,7 @@ import { Player } from "./Player/Player.jsx";
 import useGame from "./stores/useGame.js";
 import { Effects } from "./Effects.jsx";
 
-export default function Experience() {
+export default function Experience({ selectedLevelID }) {
   const blocksCount = useGame((state) => {
     return state.blocksCount;
   });
@@ -13,9 +13,10 @@ export default function Experience() {
   return (
     <>
       <color attach="background" args={["rgb(53, 37, 37)"]} />
-      <Physics>
+      <Physics key={selectedLevelID}>
+        <Debug />
         <Lights />
-        <Level trapCount={blocksCount} />
+        <Level trapCount={blocksCount} selectedLevelID={selectedLevelID} />
         <Player />
         <Effects />
       </Physics>

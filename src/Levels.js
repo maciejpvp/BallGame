@@ -132,4 +132,70 @@ export const levels = [
       },
     ],
   },
+  {
+    times: {
+      forTwoStars: 35,
+      forThreeStars: 18,
+      hackerTime: 4,
+    },
+    blocks: [
+      {
+        objects: [
+          {
+            type: "movingPlatform",
+            position: [0, -0.3, 0],
+            speed: 2.2,
+            range: 4,
+          },
+          {
+            type: "laser",
+            position: [0, 0, 1],
+            speed: 2.8,
+            startPosition: 1.2,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    times: {
+      forTwoStars: 35,
+      forThreeStars: 18,
+      hackerTime: 4,
+    },
+    blocks: [
+      {
+        objects: [
+          {
+            type: "movingPlatform",
+            position: [0, -0.3, 0],
+            speed: 2.2,
+            range: 4,
+          },
+          {
+            type: "laser",
+            position: [0, 0, 1],
+            speed: 2.8,
+            startPosition: 1.2,
+          },
+        ],
+      },
+      {
+        objects: [
+          {
+            type: "movingPlatform",
+            position: [0, -0.3, 0],
+            speed: 2.2,
+            range: 4,
+          },
+          {
+            type: "laser",
+            position: [0, 0, 1],
+            speed: 2.8,
+            startPosition: 1.2,
+          },
+        ],
+      },
+    ],
+  },
 ];

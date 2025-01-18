@@ -18,7 +18,7 @@ const useGame = create(
         });
       },
 
-      phase: "ready",
+      phase: "mainmenu", //ready
       start: () => {
         set((state) => {
           if (state.phase !== "ready") return {};
@@ -36,6 +36,14 @@ const useGame = create(
           if (state.phase === "playing")
             return { phase: "ended", endTime: Date.now() };
           return {};
+        });
+      },
+      nextLevel: () => {
+        set((state) => {
+          return {
+            selectedLevelID: state.selectedLevelID + 1,
+            blocksCount: levels[state.selectedLevelID + 1].blocks.length,
+          };
         });
       },
     };

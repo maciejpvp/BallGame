@@ -4,11 +4,17 @@ import { Overlay } from "./Overlay/Overlay";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import * as THREE from "three";
-import { useControls } from "leva";
+import { button, useControls } from "leva";
+import { MainMenu } from "./Overlay/MainMenu/MainMenu";
+import useGame from "./stores/useGame";
+import { useState } from "react";
 
 export const App = () => {
+  const selectedLevelID = useGame((state) => state.selectedLevelID);
+  const nextLevel = useGame((state) => state.nextLevel);
   const { showPerf } = useControls({
     showPerf: false,
+    nextLevel: button(nextLevel),
   });
 
   return (
@@ -35,8 +41,9 @@ export const App = () => {
         }}
       >
         {showPerf && <Perf position="top-left" />}
-        <Experience />
+        <Experience selectedLevelID={selectedLevelID} />
       </Canvas>
+
       <Overlay />
     </KeyboardControls>
   );

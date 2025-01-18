@@ -11,8 +11,10 @@ import { levels } from "./Levels";
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import { MovingBlock } from "./Traps/MovingBlock";
 
-export const Level = ({ trapCount }) => {
+export const Level = ({ trapCount, selectedLevelID }) => {
   const winBlockPosition = trapCount * 4 + 4;
+  // const selectedLevelID = useGame((state) => state.selectedLevelID);
+  const selectedLevel = levels[selectedLevelID];
 
   return (
     <>
@@ -21,7 +23,7 @@ export const Level = ({ trapCount }) => {
         <CuboidCollider args={[2, 0.1, 2]} position={[0, -0.1, 0]} />
         <Block type="start" />
       </RigidBody>
-      {levels[0].blocks.map((b, i) => (
+      {selectedLevel.blocks.map((b, i) => (
         <Block type="trap" key={i} position={[0, 0, -(4 + i * 4)]}>
           {b.objects.map((o, i) => {
             switch (o.type) {

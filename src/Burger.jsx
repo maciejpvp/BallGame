@@ -1,20 +1,18 @@
 import { useGLTF } from "@react-three/drei";
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import { useEffect } from "react";
 // import * as THREE from "three";
 
 export const Burger = (props) => {
   const model = useGLTF("./hamburger.glb");
 
+  // useEffect(() => {
+  //   return () => model.dispose(); // Dispose model on unmount
+  // }, [model]);
+
   model.scene.children.forEach((mesh) => {
     mesh.castShadow = true;
   });
-
-  //   const boundingBox = new THREE.Box3().setFromObject(model.scene);
-
-  //   const size = new THREE.Vector3();
-  //   boundingBox.getSize(size);
-
-  //   console.log(size.x/2, size.y/2, size.z/2);
 
   return (
     <RigidBody type="fixed" colliders={false} position-y={0.2}>

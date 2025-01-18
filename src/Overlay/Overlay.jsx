@@ -5,6 +5,7 @@ import { ResetButton } from "./ResetButton";
 import useGame from "../stores/useGame";
 import { Menu } from "./Menu/Menu";
 import { useEffect, useState } from "react";
+import { MainMenu } from "./MainMenu/MainMenu";
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -24,6 +25,7 @@ export const Overlay = () => {
 
   return (
     <StyledOverlay>
+      {/* <MainMenu /> */}
       {phase === "ended" && <Menu />}
       <Timer />
       <Keystrokes />
