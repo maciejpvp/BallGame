@@ -14,6 +14,7 @@ export const Player = () => {
   const restart = useGame((state) => state.restart);
   const blocksCount = useGame((state) => state.blocksCount);
   const setPlayer = useGame((state) => state.setPlayer);
+  const phase = useGame((state) => state.phase);
   const playerRef = useRef();
 
   const { rapier, world } = useRapier();
@@ -28,6 +29,7 @@ export const Player = () => {
   });
 
   const handleMovement = (delta) => {
+    if (phase === "ended") return;
     const { forward, backward, leftward, rightward } = getKeys();
     const impulse = { x: 0, y: 0, z: 0 };
     const torque = { x: 0, y: 0, z: 0 };
@@ -100,6 +102,7 @@ export const Player = () => {
   });
 
   const jump = () => {
+    if (phase === "ended") return;
     if (infJump) {
       playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
       return;
