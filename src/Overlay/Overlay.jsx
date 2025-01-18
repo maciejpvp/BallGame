@@ -20,15 +20,19 @@ const StyledOverlay = styled.div`
   font-family: "Montserrat", cursive;
 `;
 
-export const Overlay = () => {
+export const Overlay = ({ showMainMenu }) => {
   const phase = useGame((state) => state.phase);
 
   return (
     <StyledOverlay>
-      {/* <MainMenu /> */}
+      {showMainMenu && <MainMenu />}
       {phase === "ended" && <Menu />}
-      <Timer />
-      <Keystrokes />
+      {!showMainMenu && (
+        <>
+          <Timer />
+          <Keystrokes />
+        </>
+      )}
     </StyledOverlay>
   );
 };

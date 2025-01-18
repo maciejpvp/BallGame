@@ -40,9 +40,25 @@ const useGame = create(
       },
       nextLevel: () => {
         set((state) => {
+          if (levels.length <= state.selectedLevelID + 1) {
+            return {
+              selectedLevelID: 0,
+              blocksCount: levels[0].blocks.length,
+            };
+          }
           return {
             selectedLevelID: state.selectedLevelID + 1,
             blocksCount: levels[state.selectedLevelID + 1].blocks.length,
+          };
+        });
+      },
+      selectLevel: (levelID) => {
+        console.log(levelID);
+        set(() => {
+          return {
+            selectedLevelID: levelID,
+            blocksCount: levels[levelID].blocks.length,
+            phase: "ready",
           };
         });
       },

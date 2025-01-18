@@ -12,6 +12,8 @@ import { useState } from "react";
 export const App = () => {
   const selectedLevelID = useGame((state) => state.selectedLevelID);
   const nextLevel = useGame((state) => state.nextLevel);
+  const phase = useGame((state) => state.phase);
+
   const { showPerf } = useControls({
     showPerf: false,
     nextLevel: button(nextLevel),
@@ -41,10 +43,12 @@ export const App = () => {
         }}
       >
         {showPerf && <Perf position="top-left" />}
-        <Experience selectedLevelID={selectedLevelID} />
+        {phase !== "mainmenu" && (
+          <Experience selectedLevelID={selectedLevelID} />
+        )}
       </Canvas>
 
-      <Overlay />
+      <Overlay showMainMenu={phase === "mainmenu"} />
     </KeyboardControls>
   );
 };
