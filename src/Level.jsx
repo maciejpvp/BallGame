@@ -5,7 +5,7 @@ import { Walls } from "./Walls";
 import { Spinner } from "./Traps/Spinner";
 import { Laser } from "./Traps/Laser";
 import { Floor } from "./Traps/Floor";
-import { levels } from "./Levels";
+import { levels } from "./Levels/levels";
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import { MovingBlock } from "./Traps/MovingBlock";
 

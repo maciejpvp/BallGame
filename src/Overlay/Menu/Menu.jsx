@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Stars } from "./Starts";
 import useGame from "../../stores/useGame";
-import { levels } from "../../Levels";
+import { levels } from "../../Levels/levels";
 
 const StyledMenu = styled.div`
   background-color: #0a0a0a;

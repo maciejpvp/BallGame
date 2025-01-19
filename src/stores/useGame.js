@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
-import { levels } from "../Levels";
+import { levels } from "../Levels/levels";
 
 const useGame = create(
   subscribeWithSelector((set) => {
