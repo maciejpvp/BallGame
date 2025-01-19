@@ -103,6 +103,7 @@ export const Player = () => {
 
   const jump = () => {
     if (phase === "ended") return;
+
     if (infJump) {
       playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
       return;
@@ -138,7 +139,7 @@ export const Player = () => {
       unsubJump();
       unsubAny();
     };
-  }, [infJump]);
+  }, [infJump, phase]);
 
   const handleCollision = (value) => {
     if (value.rigidBodyObject.userData === 1 && !godMode) {

@@ -44,11 +44,13 @@ const useGame = create(
             return {
               selectedLevelID: 0,
               blocksCount: levels[0].blocks.length,
+              phase: "ready",
             };
           }
           return {
             selectedLevelID: state.selectedLevelID + 1,
             blocksCount: levels[state.selectedLevelID + 1].blocks.length,
+            phase: "ready",
           };
         });
       },

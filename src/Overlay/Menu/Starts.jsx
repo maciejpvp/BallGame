@@ -3,9 +3,9 @@ import { Star } from "./Star";
 
 const StyledStars = styled.div`
   display: flex;
-  position: absolute;
-  scale: 0.5;
-  gap: 70px;
+  /* position: absolute; */
+  scale: 1.4;
+  gap: 20px;
   top: -10px;
 `;
 
