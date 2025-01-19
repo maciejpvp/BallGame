@@ -2,10 +2,8 @@ import { Block } from "./Blocks/Block";
 import { boxGeometry, obstacleMaterial } from "./assets";
 import { Burger } from "./Burger";
 import { Walls } from "./Walls";
-import useGame from "./stores/useGame";
 import { Spinner } from "./Traps/Spinner";
 import { Laser } from "./Traps/Laser";
-import { Axe } from "./Traps/Axe";
 import { Floor } from "./Traps/Floor";
 import { levels } from "./Levels";
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
@@ -13,7 +11,6 @@ import { MovingBlock } from "./Traps/MovingBlock";
 
 export const Level = ({ trapCount, selectedLevelID }) => {
   const winBlockPosition = trapCount * 4 + 4;
-  // const selectedLevelID = useGame((state) => state.selectedLevelID);
   const selectedLevel = levels[selectedLevelID];
 
   return (
@@ -48,6 +45,9 @@ export const Level = ({ trapCount, selectedLevelID }) => {
                     startPosition={o.startPosition}
                     position={o.position}
                     speed={o.speed}
+                    moving={o.moving}
+                    width={o.width}
+                    range={o.range}
                   />
                 );
 

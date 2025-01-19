@@ -18,7 +18,7 @@ const useGame = create(
         });
       },
 
-      phase: "mainmenu", //ready
+      phase: "mainmenu",
       start: () => {
         set((state) => {
           if (state.phase !== "ready") return {};
@@ -55,7 +55,6 @@ const useGame = create(
         });
       },
       selectLevel: (levelID) => {
-        console.log(levelID);
         set(() => {
           return {
             selectedLevelID: levelID,

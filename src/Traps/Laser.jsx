@@ -1,28 +1,31 @@
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export const Laser = ({
   material,
   geometry,
   startPosition,
   position,
+  moving = true,
   speed = 1,
+  width = 3.9,
+  range = 0.7,
 }) => {
   const LaserRef = useRef();
 
-  const scale = [3.9, 0.1, 0.1];
+  const scale = [width, 0.1, 0.1];
 
   useFrame((state, delta) => {
-    const time = state.clock.getElapsedTime();
+    const time = moving ? state.clock.getElapsedTime() : 1;
 
     const currentPosition = LaserRef.current.translation();
 
     LaserRef.current.setNextKinematicTranslation(
       new THREE.Vector3(
         currentPosition.x,
-        Math.sin(startPosition + time * speed) * 0.7 + 0.905,
+        Math.sin(startPosition + time * speed) * range + (range + 0.1),
         currentPosition.z
       )
     );

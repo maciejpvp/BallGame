@@ -1,4 +1,4 @@
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { RigidBody, useRapier } from "@react-three/rapier";
 import { useKeyboardControls } from "@react-three/drei";
 import { useEffect, useRef } from "react";
@@ -55,7 +55,7 @@ export const Player = () => {
     }
 
     if (infJump && jump) {
-      impulse.y += impulseStrength;
+      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.001, 0));
     }
 
     playerRef.current.applyImpulse(impulse);
@@ -114,6 +114,7 @@ export const Player = () => {
     if (phase === "ended") return;
 
     if (infJump) {
+      console.log("infJump");
       playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
       return;
     }

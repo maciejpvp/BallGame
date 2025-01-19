@@ -5,9 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import * as THREE from "three";
 import { button, useControls } from "leva";
-import { MainMenu } from "./Overlay/MainMenu/MainMenu";
 import useGame from "./stores/useGame";
-import { useState } from "react";
 
 export const App = () => {
   const selectedLevelID = useGame((state) => state.selectedLevelID);
