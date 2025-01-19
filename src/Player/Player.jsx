@@ -30,7 +30,7 @@ export const Player = () => {
 
   const handleMovement = (delta) => {
     if (phase === "ended") return;
-    const { forward, backward, leftward, rightward } = getKeys();
+    const { forward, backward, leftward, rightward, jump } = getKeys();
     const impulse = { x: 0, y: 0, z: 0 };
     const torque = { x: 0, y: 0, z: 0 };
 
@@ -52,6 +52,10 @@ export const Player = () => {
     if (leftward) {
       impulse.x -= impulseStrength;
       torque.z += torqueImpulse;
+    }
+
+    if (infJump && jump) {
+      impulse.y += impulseStrength;
     }
 
     playerRef.current.applyImpulse(impulse);
@@ -80,7 +84,7 @@ export const Player = () => {
 
   const handleGameStates = () => {
     const playerPosition = playerRef.current.translation();
-    if (playerPosition.z < -(blocksCount * 4 + 2)) {
+    if (playerPosition.z < -(blocksCount * 4 + 2.5)) {
       end();
     }
     if (playerPosition.y < -0.9) {
@@ -91,6 +95,11 @@ export const Player = () => {
 
   const handleReset = () => {
     playerRef.current.setTranslation({ x: 0, y: 2, z: 0 });
+    playerRef.current.setLinvel({ x: 0, y: 0, z: 0 });
+    playerRef.current.setAngvel({ x: 0, y: 0, z: 0 });
+  };
+
+  const handleEnd = () => {
     playerRef.current.setLinvel({ x: 0, y: 0, z: 0 });
     playerRef.current.setAngvel({ x: 0, y: 0, z: 0 });
   };
@@ -124,6 +133,7 @@ export const Player = () => {
       (state) => state.phase,
       (value) => {
         value === "ready" && handleReset();
+        value === "ended" && handleEnd();
       }
     );
 
