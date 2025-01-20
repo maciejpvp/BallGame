@@ -16,13 +16,13 @@ const SecRow = styled.div`
 export const Keystrokes = () => {
   return (
     <StyledKeystrokes>
-      <Keystroke char={"W"} />
+      <Keystroke char={"W"} subscribeTo="forward" keyCode={87} />
       <SecRow>
-        <Keystroke char={"A"} subscribeTo={"leftward"} />
-        <Keystroke char={"S"} subscribeTo={"backward"} />
-        <Keystroke char={"D"} subscribeTo={"rightward"} />
+        <Keystroke char={"A"} subscribeTo={"leftward"} keyCode={65} />
+        <Keystroke char={"S"} subscribeTo={"backward"} keyCode={83} />
+        <Keystroke char={"D"} subscribeTo={"rightward"} keyCode={68} />
       </SecRow>
-      <Keystroke char={"space"} subscribeTo={"jump"} />
+      <Keystroke char={"space"} subscribeTo={"jump"} keyCode={32} />
     </StyledKeystrokes>
   );
 };

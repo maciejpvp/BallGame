@@ -28,15 +28,17 @@ export const App = () => {
       ]}
     >
       <Canvas
-        gl={{
-          toneMapping: THREE.CineonToneMapping,
-          // outputEncoding: THREE.sRGBEncoding,
-        }}
+        gl={
+          {
+            // toneMapping: THREE.ACESFilmicToneMapping,
+            // outputEncoding: THREE.sRGBEncoding,
+          }
+        }
         shadows
         camera={{
           fov: 45,
           near: 0.1,
-          far: 200,
+          far: 100,
           position: [2.5, 4, 6],
         }}
       >

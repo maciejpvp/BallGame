@@ -4,12 +4,15 @@ import { useEffect } from "react";
 import styled, { css } from "styled-components";
 
 const StyledKeystroke = styled.div`
+  pointer-events: all;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2.2vw;
   background-color: #1f1f1f;
-  transition: background-color 100ms ease-in-out, scale 100ms linear,
+  transition:
+    background-color 100ms ease-in-out,
+    scale 100ms linear,
     margin 100ms ease-in-out;
   color: #ffffff;
   scale: ${({ $isActive }) => ($isActive ? 1.1 : 1)};
@@ -31,7 +34,9 @@ const StyledKeystroke = styled.div`
     background-color: #ffffffa6;
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform 150ms ease, opacity 100ms ease;
+    transition:
+      transform 150ms ease,
+      opacity 100ms ease;
     opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
   }
 
@@ -57,7 +62,7 @@ const StyledKeystroke = styled.div`
   `}
 `;
 
-export const Keystroke = ({ char, subscribeTo = "forward" }) => {
+export const Keystroke = ({ char, subscribeTo = "forward", keyCode }) => {
   const [isActive, setIsActive] = useState(false);
   const [subscribeKeys] = useKeyboardControls();
   const isSpace = char === "space";
@@ -67,10 +72,33 @@ export const Keystroke = ({ char, subscribeTo = "forward" }) => {
     value ? setIsActive(true) : setIsActive(false);
   };
 
+  const eventPress = new KeyboardEvent("keydown", {
+    key: char === "" ? " " : char,
+    code: char === "" ? "Space" : `Key${char}`,
+    keyCode: keyCode,
+    which: keyCode,
+    bubbles: true,
+  });
+  const eventStop = new KeyboardEvent("keyup", {
+    key: char === "" ? " " : char,
+    code: char === "" ? "Space" : `Key${char}`,
+    keyCode: keyCode,
+    which: keyCode,
+    bubbles: true,
+  });
+
+  const handleTouchStart = () => {
+    document.dispatchEvent(eventPress);
+  };
+
+  const handleTouchStop = () => {
+    document.dispatchEvent(eventStop);
+  };
+
   useEffect(() => {
     const unsubChar = subscribeKeys(
       (state) => state[subscribeTo],
-      (value) => animateCharacter(value)
+      (value) => animateCharacter(value),
     );
     return () => {
       unsubChar();
@@ -78,7 +106,12 @@ export const Keystroke = ({ char, subscribeTo = "forward" }) => {
   }, []);
 
   return (
-    <StyledKeystroke $isActive={isActive} $isSpace={isSpace}>
+    <StyledKeystroke
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchStop}
+      $isActive={isActive}
+      $isSpace={isSpace}
+    >
       {char}
     </StyledKeystroke>
   );
