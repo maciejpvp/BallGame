@@ -6,6 +6,8 @@ import useGame from "../stores/useGame";
 import { Menu } from "./Menu/Menu";
 import { useEffect, useState } from "react";
 import { MainMenu } from "./MainMenu/MainMenu";
+import { Joystick } from "./Joystick";
+import { useThree } from "@react-three/fiber";
 
 const StyledOverlay = styled.div`
   position: fixed;
@@ -16,12 +18,25 @@ const StyledOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  // pointer-events: none;
   font-family: "Montserrat", cursive;
+`;
+
+const JoyStickDiv = styled.div`
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
 `;
 
 export const Overlay = ({ showMainMenu }) => {
   const phase = useGame((state) => state.phase);
+
+  const handlePlayerMovement = (event) => {
+    const customEvent = new CustomEvent("joystickMove", {
+      detail: { event },
+    });
+    document.dispatchEvent(customEvent);
+  };
 
   return (
     <StyledOverlay>
@@ -31,6 +46,15 @@ export const Overlay = ({ showMainMenu }) => {
         <>
           <Timer />
           <Keystrokes />
+      <JoyStickDiv>
+        <Joystick
+          onJoystickMove={handlePlayerMovement}
+          containerColor="rgb(33, 33, 33)"
+          containerOpacity={80}
+          KnobColor="white"
+          KnobOpacity={90}
+        />
+      </JoyStickDiv>
         </>
       )}
     </StyledOverlay>

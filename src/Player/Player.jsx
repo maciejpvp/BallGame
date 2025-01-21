@@ -16,6 +16,7 @@ export const Player = () => {
   const setPlayer = useGame((state) => state.setPlayer);
   const phase = useGame((state) => state.phase);
   const playerRef = useRef();
+  const joyStickValues = useRef({ x: 0, y: 0 });
 
   const { rapier, world } = useRapier();
   const rapierWorld = world.raw();
@@ -36,6 +37,8 @@ export const Player = () => {
 
     const impulseStrength = 0.01 * delta * speedHack;
     const torqueImpulse = 0.002 * delta * speedHack;
+    impulse.x = impulseStrength * joyStickValues.current.x;
+    impulse.z = impulseStrength * joyStickValues.current.y;
 
     if (forward) {
       impulse.z -= impulseStrength;
@@ -70,15 +73,15 @@ export const Player = () => {
     camera.position.set(
       smoothCameraPosition.x,
       smoothCameraPosition.y + 0.35,
-      smoothCameraPosition.z + 1.25
+      smoothCameraPosition.z + 1.25,
     );
 
     camera.lookAt(
       new THREE.Vector3(
         smoothCameraPosition.x,
         smoothCameraPosition.y + 0.25,
-        smoothCameraPosition.z
-      )
+        smoothCameraPosition.z,
+      ),
     );
   };
 
@@ -114,7 +117,6 @@ export const Player = () => {
     if (phase === "ended") return;
 
     if (infJump) {
-      console.log("infJump");
       playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
       return;
     }
@@ -135,20 +137,25 @@ export const Player = () => {
       (value) => {
         value === "ready" && handleReset();
         value === "ended" && handleEnd();
-      }
+      },
     );
 
     const unsubJump = subscribeKeys(
       (state) => state.jump,
-      (value) => (value ? jump() : null)
+      (value) => (value ? jump() : null),
     );
     const unsubAny = subscribeKeys(() => {
       start();
     });
+    const onJoystickMove = (event) => {
+      joyStickValues.current = event.detail.event;
+    };
+    document.addEventListener("joystickMove", onJoystickMove);
     return () => {
       unsubGame();
       unsubJump();
       unsubAny();
+      document.removeEventListener("joystickMove", onJoystickMove);
     };
   }, [infJump, phase]);
 

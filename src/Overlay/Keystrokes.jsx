@@ -24,12 +24,12 @@ export const Keystrokes = () => {
   return (
     <>
       <StyledKeystrokes>
-        <Keystroke char={"W"} subscribeTo="forward" keyCode={87} />
-        <SecRow>
-          <Keystroke char={"A"} subscribeTo={"leftward"} keyCode={65} />
-          <Keystroke char={"S"} subscribeTo={"backward"} keyCode={83} />
-          <Keystroke char={"D"} subscribeTo={"rightward"} keyCode={68} />
-        </SecRow>
+        {/* <Keystroke char={"W"} subscribeTo="forward" keyCode={87} /> */}
+        {/* <SecRow> */}
+        {/*   <Keystroke char={"A"} subscribeTo={"leftward"} keyCode={65} /> */}
+        {/*   <Keystroke char={"S"} subscribeTo={"backward"} keyCode={83} /> */}
+        {/*   <Keystroke char={"D"} subscribeTo={"rightward"} keyCode={68} /> */}
+        {/* </SecRow> */}
       </StyledKeystrokes>
       <SpaceRow>
         <Keystroke char={"space"} subscribeTo={"jump"} keyCode={32} />
