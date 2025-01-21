@@ -7,6 +7,13 @@ import * as THREE from "three";
 import { button, useControls } from "leva";
 import useGame from "./stores/useGame";
 
+function isMobileDevice() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /mobile|android|iphone|ipod|ipad|windows phone|blackberry|iemobile/.test(
+    userAgent,
+  );
+}
+
 export const App = () => {
   const selectedLevelID = useGame((state) => state.selectedLevelID);
   const nextLevel = useGame((state) => state.nextLevel);
@@ -36,7 +43,7 @@ export const App = () => {
         }
         shadows
         camera={{
-          fov: 45,
+          fov: isMobileDevice() ? 35 : 45,
           near: 0.1,
           far: 100,
           position: [2.5, 4, 6],

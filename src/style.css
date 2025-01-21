@@ -9,4 +9,8 @@ body,
   height: 100%;
   background: rgb(29, 29, 29);
   font-family: "Roboto", sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }

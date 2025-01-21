@@ -17,8 +17,8 @@ const StyledKeystroke = styled.div`
   color: #ffffff;
   scale: ${({ $isActive }) => ($isActive ? 1.1 : 1)};
   opacity: 0.8;
-  width: ${({ $isSpace }) => ($isSpace ? "180px" : "60px")};
-  height: ${({ $isSpace }) => ($isSpace ? "40px" : "60px")};
+  width: ${({ $isSpace }) => ($isSpace ? "120px" : "60px")};
+  height: ${({ $isSpace }) => ($isSpace ? "120px" : "60px")};
   margin: 4px;
   border-radius: ${({ $isSpace }) => ($isSpace ? "15px" : "30%")};
   position: relative;
