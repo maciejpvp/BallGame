@@ -65,7 +65,7 @@ export const Map = ({ title = "Coming soon", levelID }) => {
   return (
     <StyledMap
       onClick={handleStartMap}
-      $backgroundImage={`level-${levelID}.png`}
+      $backgroundImage={levelID !== undefined ? `level-${levelID}.png` : "none"}
     >
       <StyledTitle>{title}</StyledTitle>
     </StyledMap>
