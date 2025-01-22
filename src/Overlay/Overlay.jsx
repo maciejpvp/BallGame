@@ -9,6 +9,13 @@ import { MainMenu } from "./MainMenu/MainMenu";
 import { Joystick } from "./Joystick";
 import { useThree } from "@react-three/fiber";
 
+function isMobileDevice() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return /mobile|android|iphone|ipod|ipad|windows phone|blackberry|iemobile/.test(
+    userAgent,
+  );
+}
+
 const StyledOverlay = styled.div`
   position: fixed;
   display: flex;
@@ -45,16 +52,20 @@ export const Overlay = ({ showMainMenu }) => {
       {!showMainMenu && (
         <>
           <Timer />
-          <Keystrokes />
-      <JoyStickDiv>
-        <Joystick
-          onJoystickMove={handlePlayerMovement}
-          containerColor="rgb(33, 33, 33)"
-          containerOpacity={80}
-          KnobColor="white"
-          KnobOpacity={90}
-        />
-      </JoyStickDiv>
+          {isMobileDevice() && (
+            <>
+              <Keystrokes />
+              <JoyStickDiv>
+                <Joystick
+                  onJoystickMove={handlePlayerMovement}
+                  containerColor="rgb(33, 33, 33)"
+                  containerOpacity={80}
+                  KnobColor="white"
+                  KnobOpacity={90}
+                />
+              </JoyStickDiv>
+            </>
+          )}
         </>
       )}
     </StyledOverlay>

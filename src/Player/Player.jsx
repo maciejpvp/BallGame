@@ -37,8 +37,8 @@ export const Player = () => {
 
     const impulseStrength = 0.01 * delta * speedHack;
     const torqueImpulse = 0.002 * delta * speedHack;
-    impulse.x = impulseStrength * joyStickValues.current.x;
-    impulse.z = impulseStrength * joyStickValues.current.y;
+    impulse.x = impulseStrength * joyStickValues.current.x * 2;
+    impulse.z = impulseStrength * joyStickValues.current.y * 2;
 
     if (forward) {
       impulse.z -= impulseStrength;
@@ -148,6 +148,7 @@ export const Player = () => {
       start();
     });
     const onJoystickMove = (event) => {
+      start();
       joyStickValues.current = event.detail.event;
     };
     document.addEventListener("joystickMove", onJoystickMove);

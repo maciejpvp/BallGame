@@ -10,11 +10,17 @@ const StyledMap = styled.div`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 250px;
-  height: 250px;
   border-radius: 30px;
   transition: all 400ms cubic-bezier(0.47, 1.64, 0.41, 0.8);
   pointer-events: all;
+
+  width: 150px;
+  height: 150px;
+
+  @media (min-width: 850px) {
+    width: 250px;
+    height: 250px;
+  }
 
   @keyframes tilt {
     0% {
@@ -47,11 +53,15 @@ const StyledMap = styled.div`
 
 const StyledTitle = styled.p`
   /* position: absolute; */
-  font-size: 50px;
   text-align: center;
   font-weight: 500;
   color: #c2c2c2;
   z-index: 1;
+
+  font-size: 30px;
+  @media (min-width: 850px) {
+    font-size: 50px;
+  }
 `;
 
 export const Map = ({ title = "Coming soon", levelID }) => {

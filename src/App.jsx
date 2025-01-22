@@ -4,7 +4,7 @@ import { Overlay } from "./Overlay/Overlay";
 import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience";
 import * as THREE from "three";
-import { button, useControls } from "leva";
+import { button, Leva, useControls } from "leva";
 import useGame from "./stores/useGame";
 
 function isMobileDevice() {
@@ -16,6 +16,7 @@ function isMobileDevice() {
 
 export const App = () => {
   const selectedLevelID = useGame((state) => state.selectedLevelID);
+  const isDebugMode = window.location.hash.includes("#debug");
   const nextLevel = useGame((state) => state.nextLevel);
   const phase = useGame((state) => state.phase);
 
@@ -34,6 +35,7 @@ export const App = () => {
         { name: "jump", keys: ["Space"] },
       ]}
     >
+      <Leva collapsed hidden={!isDebugMode} />
       <Canvas
         gl={
           {
