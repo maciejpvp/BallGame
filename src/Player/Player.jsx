@@ -17,6 +17,7 @@ export const Player = () => {
   const phase = useGame((state) => state.phase);
   const playerRef = useRef();
   const joyStickValues = useRef({ x: 0, y: 0 });
+  const lastJump = useRef(Date.now());
 
   const { rapier, world } = useRapier();
   const rapierWorld = world.raw();
@@ -29,6 +30,33 @@ export const Player = () => {
     speedHack: { value: 1, min: 1, max: 5, step: 0.001 },
   });
 
+  const handleJump = () => {
+    if (phase === "ended") return;
+
+    const player = playerRef.current;
+    if (!player) return;
+
+    if (infJump) {
+      player.applyImpulse(new THREE.Vector3(0, 0.002, 0));
+      return;
+    }
+
+    const origin = player.translation();
+    const ray = new rapier.Ray(
+      new THREE.Vector3(origin.x, origin.y - 0.001, origin.z),
+      new THREE.Vector3(0, -1, 0),
+    );
+    const hit = rapierWorld.castRay(ray);
+
+    if (hit && hit.toi < 0.1) {
+      const now = Date.now();
+      if (lastJump.current + 50 > now) {
+        return;
+      }
+      player.applyImpulse(new THREE.Vector3(0, 0.015, 0));
+      lastJump.current = now;
+    }
+  };
   const handleMovement = (delta) => {
     if (phase === "ended") return;
     const { forward, backward, leftward, rightward, jump } = getKeys();
@@ -57,8 +85,8 @@ export const Player = () => {
       torque.z += torqueImpulse;
     }
 
-    if (infJump && jump) {
-      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.001, 0));
+    if (jump) {
+      handleJump();
     }
 
     playerRef.current.applyImpulse(impulse);
@@ -113,23 +141,6 @@ export const Player = () => {
     handleGameStates();
   });
 
-  const jump = () => {
-    if (phase === "ended") return;
-
-    if (infJump) {
-      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
-      return;
-    }
-    const origin = playerRef.current.translation();
-    origin.y -= 0.001;
-    const direction = new THREE.Vector3(0, -1, 0);
-    const ray = new rapier.Ray(origin, direction);
-    const hit = rapierWorld.castRay(ray);
-    if (hit.toi < 0.1) {
-      playerRef.current.applyImpulse(new THREE.Vector3(0, 0.015, 0));
-    }
-  };
-
   useEffect(() => {
     setPlayer(playerRef.current);
     const unsubGame = useGame.subscribe(
@@ -142,7 +153,7 @@ export const Player = () => {
 
     const unsubJump = subscribeKeys(
       (state) => state.jump,
-      (value) => (value ? jump() : null),
+      (value) => (value ? null : null),
     );
     const unsubAny = subscribeKeys(() => {
       start();

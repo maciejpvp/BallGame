@@ -7,7 +7,7 @@ export default {
   plugins: [react()],
   root: "src/",
   publicDir: "../public/",
-  base: "./",
+  base: "/BallGame",
   server: {
     host: true,
     // open: !isCodeSandbox,
