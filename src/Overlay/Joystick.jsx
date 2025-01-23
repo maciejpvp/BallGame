@@ -11,6 +11,7 @@ const Container = styled.div`
   border-radius: 50%;
   overflow: hidden;
   touch-action: none;
+  pointer-events: all;
 `;
 
 const Knob = styled.div`
