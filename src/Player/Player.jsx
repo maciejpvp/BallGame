@@ -100,8 +100,8 @@ export const Player = () => {
 
     camera.position.set(
       smoothCameraPosition.x,
-      smoothCameraPosition.y + 0.35,
-      smoothCameraPosition.z + 1.25,
+      smoothCameraPosition.y + 0.45,
+      smoothCameraPosition.z + 2.25,
     );
 
     camera.lookAt(

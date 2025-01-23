@@ -1,5 +1,10 @@
 import { CuboidCollider, RigidBody } from "@react-three/rapier";
-import { boxGeometry, floor2Material, wallMaterial } from "./assets";
+import {
+  boxGeometry,
+  floor1Material,
+  floor2Material,
+  wallMaterial,
+} from "./assets";
 
 export const Walls = ({ length }) => {
   const sideWallsPositionZ = -(length / 2) + 2;
@@ -49,7 +54,7 @@ export const Walls = ({ length }) => {
         receiveShadow
         geometry={boxGeometry}
         material={floor2Material}
-        scale={[4, 0.2, length]}
+        scale={[4, 1, length]}
       />
       {/* Backwall */}
       <CuboidCollider
@@ -57,6 +62,14 @@ export const Walls = ({ length }) => {
         position={[0, 0, 1.5]}
         restitution={0.2}
         friction={1}
+      />
+      {/* Roof */}
+      <mesh
+        geometry={boxGeometry}
+        material={floor1Material}
+        scale={[4, 1, length]}
+        position-z={sideWallsPositionZ}
+        position-y={wallHeight - 1}
       />
     </>
   );

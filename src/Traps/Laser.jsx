@@ -26,8 +26,8 @@ export const Laser = ({
       new THREE.Vector3(
         currentPosition.x,
         Math.sin(startPosition + time * speed) * range + (range + 0.1),
-        currentPosition.z
-      )
+        currentPosition.z,
+      ),
     );
   });
 

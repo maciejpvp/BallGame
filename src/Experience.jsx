@@ -20,7 +20,7 @@ export default function Experience({ selectedLevelID }) {
   return (
     <>
       {noClip && <OrbitControls />}
-      <color attach="background" args={["rgb(53, 37, 37)"]} />
+      <color attach="background" args={["rgb(0, 0, 0)"]} />
       <Physics key={selectedLevelID}>
         {showCollisions && <Debug />}
         <Lights />
