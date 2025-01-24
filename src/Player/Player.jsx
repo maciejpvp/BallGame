@@ -30,16 +30,9 @@ export const Player = () => {
     speedHack: { value: 1, min: 1, max: 5, step: 0.001 },
   });
 
-  const handleJump = () => {
-    if (phase === "ended") return;
-
+  const isInAir = () => {
     const player = playerRef.current;
     if (!player) return;
-
-    if (infJump) {
-      player.applyImpulse(new THREE.Vector3(0, 0.002, 0));
-      return;
-    }
 
     const origin = player.translation();
     const ray = new rapier.Ray(
@@ -48,41 +41,64 @@ export const Player = () => {
     );
     const hit = rapierWorld.castRay(ray);
 
+    return hit && hit.toi > 0.1;
     if (hit && hit.toi < 0.1) {
+      return "not on ground";
+    }
+  };
+
+  const handleJump = () => {
+    const player = playerRef.current;
+    if (phase === "ended" && !player) return;
+
+    if (infJump) {
+      player.applyImpulse(new THREE.Vector3(0, 0.002, 0));
+      return;
+    }
+
+    if (!isInAir()) {
       const now = Date.now();
       if (lastJump.current + 50 > now) {
         return;
       }
       player.applyImpulse(new THREE.Vector3(0, 0.015, 0));
+      playerRef.current.setAngvel({ x: 0, y: 0, z: 0 });
       lastJump.current = now;
     }
   };
   const handleMovement = (delta) => {
     if (phase === "ended") return;
+
     const { forward, backward, leftward, rightward, jump } = getKeys();
     const impulse = { x: 0, y: 0, z: 0 };
     const torque = { x: 0, y: 0, z: 0 };
 
     const impulseStrength = 0.01 * delta * speedHack;
     const torqueImpulse = 0.002 * delta * speedHack;
-    impulse.x = impulseStrength * joyStickValues.current.x * 2;
-    impulse.z = impulseStrength * joyStickValues.current.y * 2;
+
+    impulse.x = impulseStrength * joyStickValues.current.x;
+    impulse.z = impulseStrength * joyStickValues.current.y;
+
+    if (!isInAir()) {
+      torque.z = -torqueImpulse * joyStickValues.current.x;
+      torque.x = torqueImpulse * joyStickValues.current.y;
+    }
 
     if (forward) {
       impulse.z -= impulseStrength;
-      torque.x -= torqueImpulse;
+      if (!isInAir()) torque.x -= torqueImpulse;
     }
     if (backward) {
       impulse.z += impulseStrength;
-      torque.x += torqueImpulse;
+      if (!isInAir()) torque.x += torqueImpulse;
     }
     if (rightward) {
       impulse.x += impulseStrength;
-      torque.z -= torqueImpulse;
+      if (!isInAir()) torque.z -= torqueImpulse;
     }
     if (leftward) {
       impulse.x -= impulseStrength;
-      torque.z += torqueImpulse;
+      if (!isInAir()) torque.z += torqueImpulse;
     }
 
     if (jump) {

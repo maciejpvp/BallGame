@@ -31,8 +31,8 @@ const StyledOverlay = styled.div`
 
 const JoyStickDiv = styled.div`
   position: absolute;
-  left: 10px;
-  bottom: 10px;
+  left: 50px;
+  bottom: 40px;
 `;
 
 export const Overlay = ({ showMainMenu }) => {
@@ -62,6 +62,7 @@ export const Overlay = ({ showMainMenu }) => {
                   containerOpacity={80}
                   KnobColor="white"
                   KnobOpacity={90}
+                  scale={1.5}
                 />
               </JoyStickDiv>
             </>
