@@ -116,14 +116,14 @@ export const Player = () => {
 
     camera.position.set(
       smoothCameraPosition.x,
-      smoothCameraPosition.y + 0.45,
-      smoothCameraPosition.z + 2.25,
+      smoothCameraPosition.y + 0.7,
+      smoothCameraPosition.z + 2.4,
     );
 
     camera.lookAt(
       new THREE.Vector3(
         smoothCameraPosition.x,
-        smoothCameraPosition.y + 0.25,
+        smoothCameraPosition.y,
         smoothCameraPosition.z,
       ),
     );
