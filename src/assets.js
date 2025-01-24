@@ -3,12 +3,12 @@ import * as THREE from "three";
 THREE.ColorManagement.legacyMode = false;
 
 const textureLoader = new THREE.TextureLoader();
-const wallTexture = textureLoader.load("/brickNormal.jpeg");
+const wallTexture = textureLoader.load("BallGame/brickNormal.jpeg");
 wallTexture.wrapS = THREE.RepeatWrapping;
 wallTexture.wrapT = THREE.RepeatWrapping;
 wallTexture.repeat.set(15, 15);
 
-const floorTexture = textureLoader.load("/floor.jpeg");
+const floorTexture = textureLoader.load("BallGame/floor.jpeg");
 
 floorTexture.wrapS = THREE.RepeatWrapping;
 floorTexture.wrapT = THREE.RepeatWrapping;
