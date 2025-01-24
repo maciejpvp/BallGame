@@ -1,8 +1,12 @@
+import { useHelper } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import * as THREE from "three";
 
 export default function Lights() {
   const lightRef = useRef();
+
+  // useHelper(lightRef, THREE.DirectionalLightHelper, 1, "red");
 
   useFrame((state) => {
     lightRef.current.position.z = state.camera.position.z + 1 - 4;
@@ -15,8 +19,8 @@ export default function Lights() {
       <directionalLight
         ref={lightRef}
         castShadow
-        position={[2, 4, 1]}
-        intensity={3}
+        position={[1, 2.5, 3]}
+        intensity={4.5}
         shadow-mapSize={[1024, 1024]}
         shadow-camera-near={1}
         shadow-camera-far={10}
@@ -25,7 +29,7 @@ export default function Lights() {
         shadow-camera-bottom={-10}
         shadow-camera-left={-10}
       />
-      <ambientLight intensity={2} />
+      <ambientLight intensity={3.5} />
     </>
   );
 }

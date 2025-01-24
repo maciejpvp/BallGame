@@ -28,7 +28,7 @@ export const floor2Material = new THREE.MeshStandardMaterial({
   roughness: 0,
 });
 export const obstacleMaterial = new THREE.MeshStandardMaterial({
-  color: "rgb(209, 10, 10)",
+  color: "rgb(160, 10, 10)",
   metalness: 0,
   roughness: 1,
 });
