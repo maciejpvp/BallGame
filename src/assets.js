@@ -23,7 +23,7 @@ export const floor1Material = new THREE.MeshStandardMaterial({
 });
 
 export const floor2Material = new THREE.MeshStandardMaterial({
-  color: "rgb(51, 161, 7)",
+  color: "rgb(10, 151, 5)",
   metalness: 0,
   roughness: 0,
 });

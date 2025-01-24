@@ -5,6 +5,7 @@ import {
   floor2Material,
   wallMaterial,
 } from "./assets";
+import Lava from "./Lava";
 
 export const Walls = ({ length }) => {
   const sideWallsPositionZ = -(length / 2) + 2;
@@ -49,13 +50,15 @@ export const Walls = ({ length }) => {
         restitution={0.2}
         friction={1}
       />
-      <mesh
-        position={[0, -0.7, sideWallsPositionZ]}
-        receiveShadow
-        geometry={boxGeometry}
-        material={floor2Material}
-        scale={[4, 1, length]}
-      />
+      {/* Water */}
+      {/* <mesh */}
+      {/*   position={[0, -0.7, sideWallsPositionZ]} */}
+      {/*   receiveShadow */}
+      {/*   geometry={boxGeometry} */}
+      {/*   material={floor2Material} */}
+      {/*   scale={[4, 1, length]} */}
+      {/* /> */}
+      <Lava length={length} />
       {/* Backwall */}
       <CuboidCollider
         args={[2, 7, 0.5]}
