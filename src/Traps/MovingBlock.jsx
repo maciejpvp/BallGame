@@ -10,6 +10,7 @@ export const MovingBlock = ({
   position,
   startPosition,
   reverse,
+  round,
 }) => {
   const blockRef = useRef();
   let lastBlockPosition = new THREE.Vector3(0, 0, 0);
@@ -20,9 +21,12 @@ export const MovingBlock = ({
     if (!blockRef.current) return;
     const currentPosition = blockRef.current.translation();
     let newXPos = Math.sin((elapsedTime + startPosition) * speed) * 1.5;
+    let newZPos = round
+      ? position[2] + Math.cos((elapsedTime + startPosition) * speed) * 1.5
+      : currentPosition.z;
     if (reverse) newXPos *= -1;
     blockRef.current.setNextKinematicTranslation(
-      new THREE.Vector3(newXPos, currentPosition.y, currentPosition.z)
+      new THREE.Vector3(newXPos, currentPosition.y, newZPos),
     );
   });
 

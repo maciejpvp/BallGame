@@ -24,11 +24,17 @@ export const Player = () => {
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
 
-  const { infJump, godMode, speedHack } = useControls({
-    infJump: false,
-    godMode: false,
-    speedHack: { value: 1, min: 1, max: 5, step: 0.001 },
-  });
+  const { infJump, godMode, speedHack } = useControls(
+    "Player",
+    {
+      infJump: false,
+      godMode: false,
+      speedHack: { value: 1, min: 1, max: 5, step: 0.001 },
+    },
+    {
+      collapsed: true,
+    },
+  );
 
   const isInAir = () => {
     const player = playerRef.current;

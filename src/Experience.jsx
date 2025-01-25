@@ -12,7 +12,7 @@ export default function Experience({ selectedLevelID }) {
     return state.blocksCount;
   });
 
-  const { showCollisions, noClip } = useControls({
+  const { showCollisions, noClip } = useControls("World", {
     showCollisions: false,
     noClip: false,
   });

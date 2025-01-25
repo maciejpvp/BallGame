@@ -20,10 +20,14 @@ export const App = () => {
   const nextLevel = useGame((state) => state.nextLevel);
   const phase = useGame((state) => state.phase);
 
-  const { showPerf } = useControls({
-    showPerf: false,
-    nextLevel: button(nextLevel),
-  });
+  const { showPerf } = useControls(
+    "World",
+    {
+      showPerf: false,
+      nextLevel: button(nextLevel),
+    },
+    { collapsed: true },
+  );
 
   return (
     <KeyboardControls

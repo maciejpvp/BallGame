@@ -64,8 +64,8 @@ export const MainMenu = () => {
       {!isMobileDevice() && <StyledText>Choice Map</StyledText>}
       <MapSelector>
         <Map title="easy" levelID={0} />
-        <Map title="medium" levelID={1} />
-        <Map />
+        <Map title="Medium" levelID={1} />
+        <Map title="Hard" levelID={2} />
       </MapSelector>
     </StyledMainMenu>
   );

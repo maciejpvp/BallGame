@@ -32,20 +32,26 @@ extend({ LavaShaderMaterial });
 const Lava = ({ length }) => {
   const lavaRef = useRef();
 
-  const controls = useControls("Lava Shader", {
-    uBigWavesElevation: { value: 0.18, min: 0, max: 1, step: 0.01 },
-    uOffsetSpeed: { value: 0.2, min: 0, max: 0.2, step: 0.001 },
-    uBigWavesFrequencyX: { value: 0.5, min: 0, max: 10, step: 0.1 },
-    uBigWavesFrequencyY: { value: 0.4, min: 0, max: 10, step: 0.1 },
-    uDepthColor: { value: "#167900" },
-    uSurfaceColor: { value: "#27be05" },
-    uColorOffset: { value: 0.34, min: 0, max: 1, step: 0.01 },
-    uColorMultiplier: { value: 1.4, min: 1, max: 5, step: 0.1 },
-    uSmallWavesElevation: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    uSmallWavesFrequency: { value: 0.7, min: 0, max: 10, step: 0.1 },
-    uSmallWavesSpeed: { value: 0.18, min: 0, max: 1, step: 0.01 },
-    uSmallInterations: { value: 3.0, min: 1, max: 5, step: 1 },
-  });
+  const controls = useControls(
+    "Lava Shader",
+    {
+      uBigWavesElevation: { value: 0.18, min: 0, max: 1, step: 0.01 },
+      uOffsetSpeed: { value: 0.2, min: 0, max: 0.2, step: 0.001 },
+      uBigWavesFrequencyX: { value: 0.5, min: 0, max: 10, step: 0.1 },
+      uBigWavesFrequencyY: { value: 0.4, min: 0, max: 10, step: 0.1 },
+      uDepthColor: { value: "#167900" },
+      uSurfaceColor: { value: "#27be05" },
+      uColorOffset: { value: 0.34, min: 0, max: 1, step: 0.01 },
+      uColorMultiplier: { value: 1.4, min: 1, max: 5, step: 0.1 },
+      uSmallWavesElevation: { value: 0.25, min: 0, max: 1, step: 0.01 },
+      uSmallWavesFrequency: { value: 0.7, min: 0, max: 10, step: 0.1 },
+      uSmallWavesSpeed: { value: 0.18, min: 0, max: 1, step: 0.01 },
+      uSmallInterations: { value: 3.0, min: 1, max: 5, step: 1 },
+    },
+    {
+      collapsed: true,
+    },
+  );
 
   useFrame((state) => {
     if (lavaRef.current) {

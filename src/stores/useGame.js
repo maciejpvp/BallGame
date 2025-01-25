@@ -64,7 +64,7 @@ const useGame = create(
         });
       },
     };
-  })
+  }),
 );
 
 export default useGame;

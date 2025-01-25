@@ -58,6 +58,8 @@ export const Level = ({ trapCount, selectedLevelID }) => {
                     position={o.position}
                     startPosition={o.startPosition}
                     reverse={o.reverse}
+                    spped={o.speed}
+                    round={o.round}
                   />
                 );
 
